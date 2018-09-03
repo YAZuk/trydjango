@@ -18,12 +18,14 @@ def contact(request, *args, **kwargs):
 
 
 def product(request, *args, **kwargs):
+    products = Product.objects.all()
     my_context = {
-        "text": "Products",
+        "text": "products1",
         "is_true": True,
-        "my_list": [23, 32, 32, 43, 54, 65, 7, 65, 4323, 23]
+        "my_list": [23, 32, 32, 43, 54, 65, 7, 65, 4323, 23, 'Abc'],
+        "products": products
     }
-    return render(request, "product.html", my_context)
+    return render(request, "product_detail.html", my_context)
 
 
 def about(request, *args, **kwargs):
