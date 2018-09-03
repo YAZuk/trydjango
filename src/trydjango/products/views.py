@@ -23,7 +23,7 @@ def product(request, *args, **kwargs):
     products = Product.objects.all()
     # products = get_list_or_404(Product)
     my_context = {
-        "text": "products1",
+        "text": "Products:",
         "is_true": True,
         "my_list": [23, 32, 32, 43, 54, 65, 7, 65, 4323, 23, 'Abc'],
         "products": products

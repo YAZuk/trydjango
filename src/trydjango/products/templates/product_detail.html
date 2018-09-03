@@ -2,18 +2,16 @@
 {% block content %}
 
 
-<p>{{text|capfirst|upper }}</p>
-<p>{{is_true}}</p>
-<ul>
-{% for i in my_list%}
-    <li>{{i}}</li>
-{% endfor %}
-</ul>
+<p>{{text}}</p>
 
 <ul>
 {% for i in products%}
-    <li>{{i.title}} -> {{i.price}} -> {{i.description}}</li>
+    <li>{{i.id}} -> {{i.title}} -> {{i.price}} -> {{i.description}}</li>
 {% endfor %}
 </ul>
+
+{% for i in products%}
+    <p> <a href='{{i.get_absolute_url}}'> {{i.title}} -> {{i.price}} -> {{i.description}}</a></p>
+{% endfor %}
 
 {% endblock %}
