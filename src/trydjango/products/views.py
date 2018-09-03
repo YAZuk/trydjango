@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from .models import Product
 from .forms import ProductForm, RawProductForm
 from django.http import HttpResponse
@@ -20,6 +21,7 @@ def contact(request, *args, **kwargs):
 
 def product(request, *args, **kwargs):
     products = Product.objects.all()
+    # products = get_list_or_404(Product)
     my_context = {
         "text": "products1",
         "is_true": True,
@@ -27,6 +29,37 @@ def product(request, *args, **kwargs):
         "products": products
     }
     return render(request, "product_detail.html", my_context)
+
+
+def product_id(request, my_id):
+    # product = Product.objects.get(pk=my_id)
+    product = get_object_or_404(Product, pk=my_id)
+    # try:
+    #     product = Product.objects.get(pk=my_id)
+    # except Product.DoesNotExist:
+    #     raise Http404
+
+    my_context = {
+        "title": product.title,
+        "description": product.description,
+        "price": product.price,
+
+    }
+    return render(request, "product_detail_id.html", my_context)
+
+
+def product_delete(request, my_id):
+    product = get_object_or_404(Product, pk=my_id)
+    if request.method == "POST":
+        product.delete()
+        return redirect("../../")
+
+    my_context = {
+        "text": my_id.__str__() + " " + "deleted"
+    }
+
+    return render(request, "product_delete.html", my_context)
+
 
 
 # def product_create(request):
@@ -42,7 +75,8 @@ def product(request, *args, **kwargs):
 
 
 def product_create(request):
-    form = ProductForm(request.POST or None)
+    initialize_values = {"title": "Inititlaize value"}
+    form = ProductForm(request.POST or None, initial=initialize_values)
     if form.is_valid():
         form.save()
     context = {

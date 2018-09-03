@@ -39,7 +39,6 @@ class ProductForm(forms.ModelForm):
             return email
 
 
-
 class RawProductForm(forms.Form):
     title = forms.CharField(label='Title', initial="New Title", required=True,
                             widget=forms.TextInput(attrs={
