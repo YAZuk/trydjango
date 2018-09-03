@@ -16,6 +16,7 @@ class ProductForm(forms.ModelForm):
                                           "placeholder": "Your description"
                                       }))
         price = forms.DecimalField(initial=199.99)
+        email = forms.EmailField()
 
         class Meta:
             model = Product
@@ -30,6 +31,13 @@ class ProductForm(forms.ModelForm):
             if not "CFE" in title:
                 raise forms.ValidationError("This is not a valid title")
             return title
+
+        def clean_email(self, *args, **kwargs):
+            email = self.cleaned_data.get("email")
+            if not email.endswith("edu"):
+                raise forms.ValidationError("This is not a valid email")
+            return email
+
 
 
 class RawProductForm(forms.Form):
