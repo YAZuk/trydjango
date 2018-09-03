@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Product
+from .forms import ProductForm, RawProductForm
 from django.http import HttpResponse
 # Create your views here.
 
@@ -26,6 +27,38 @@ def product(request, *args, **kwargs):
         "products": products
     }
     return render(request, "product_detail.html", my_context)
+
+
+# def product_create(request):
+#     my_form = RawProductForm(request.GET)
+#     if request.method == "POST":
+#         my_form = RawProductForm(request.POST)
+#         if my_form.is_valid():
+#             Product.objects.create(**my_form.cleaned_data)
+#     context = {
+#             "form": my_form
+#     }
+#     return render(request, "product_create.html", context)
+
+
+def product_create(request):
+    form = ProductForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {
+        "form": form
+    }
+    return render(request, "product_create.html", context)
+
+
+# def product_create(request):
+#     if request.method == "POST":
+#         new_title = request.POST.get('title')
+#         print(new_title)
+#
+#     context = {
+#     }
+#     return render(request, "product_create.html", context)
 
 
 def about(request, *args, **kwargs):

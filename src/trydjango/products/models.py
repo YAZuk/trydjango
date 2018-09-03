@@ -9,7 +9,7 @@ class Product(models.Model):
     description = models.TextField(max_length=256, blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=5)
     summary = models.TextField(max_length=256)
-    featured = models.BooleanField()
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + "(" + self.description + ")"
