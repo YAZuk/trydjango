@@ -5,4 +5,8 @@ djangorestframework-jwt == 1.11.0
 requests == 2.19.1
 django-filter
 django-markdown
+django-markdown2
+Pillow
+
+
 

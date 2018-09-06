@@ -11,6 +11,45 @@ from django.views.generic import (
 # Create your views here.
 from .models import Article
 from .forms import ArticleModelForm
+from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissionsOrAnonReadOnly,IsAuthenticatedOrReadOnly
+from rest_framework.authentication import TokenAuthentication,\
+    BaseAuthentication,SessionAuthentication,RemoteUserAuthentication, BasicAuthentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication,\
+    BaseAuthentication,BaseJSONWebTokenAuthentication
+from json import JSONDecoder, JSONEncoder, JSONDecodeError
+from rest_framework.parsers import JSONParser
+
+
+from .serializers import ArticleSerializer
+
+
+class TestAPIView(APIView):
+    permission_classes = []
+    # authentication_classes = [JSONWebTokenAuthentication]
+    # parser_classes = JSONParser
+
+    def get(self, request):
+        return HttpResponse('Test Get API View', status=400)
+
+    def post(self, request):
+        return HttpResponse("Test Post API View", status=300)
+
+
+class TestAPIView1(ListCreateAPIView):
+    # permission_classes = [IsAuthenticated]
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    # authentication_classes = [TokenAuthentication]
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            Article.objects.create(**serializer.data)
+            # print(serializer.data)
+
+    # def get_queryset(self):
+    #     pass
 
 
 class BaseDetailView(View):

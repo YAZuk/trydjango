@@ -6,7 +6,8 @@ from .views import (
                     ArticleUpdateView,
                     ArticleDeleteView,
                     BaseView,
-                    BaseDetailView
+                    BaseDetailView, TestAPIView,
+                    TestAPIView1
                     )
 
 
@@ -21,4 +22,6 @@ urlpatterns = [
                 path('create/', ArticleCreateView.as_view(), name="article-create"),
                 path('about/', BaseView.as_view(template_name="articles/contact.html"), name="article-about"),
                 path('about/<int:pk>', BaseDetailView.as_view(), name="article-about-detail"),
+                path('test/', TestAPIView.as_view(), name="article-test"),
+                path('test1/', TestAPIView1.as_view(), name="article-test1"),
                ]
