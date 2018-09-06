@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{my_text}}</p>
+<p>{{request.GET}}</p>
+<p>{{request.POST}}</p>
+{% for i in my_list%}
+    <p> {{forloop.counter}}-{{i}}</p>
+{% endfor %}
+{% endblock content %}
