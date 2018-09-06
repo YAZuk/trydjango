@@ -12,8 +12,14 @@ from .models import Article
 
 
 class ArticleListView(ListView):
+    template_name = 'articles/article_list.html'
     queryset = Article.objects.all()
-    
+
+
+class ArticleDetailView(DetailView):
+    template_name = 'articles/article_detail.html'
+    queryset = Article.objects.all()
+
 
 
 
