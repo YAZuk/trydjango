@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 from .views import (
                     ArticleListView,
                     ArticleDetailView,
@@ -8,9 +9,9 @@ from .views import (
                     BaseView,
                     BaseDetailView, TestAPIView,
                     TestListCreate, TestPutDelete, TestGet, TestCreate,
-                    TestDelete,TestList
+                    TestDelete, TestList
                     )
-
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
 app_name = 'articles'
 
@@ -30,4 +31,8 @@ urlpatterns = [
                 path('test_delete/<int:pk>', TestDelete.as_view(), name="article-delete"),
                 path('test_get/<int:pk>', TestGet.as_view(), name="article-put"),
                 path('test_create/', TestCreate.as_view(), name="article-create"),
+                url('test_obtain_jwt/', obtain_jwt_token),
+                url('test_verify_jwt/', verify_jwt_token),
+                url('test_refresh_jwt/', refresh_jwt_token),
+                # url('test_obtain_jwt1/', CustomAuthToken.as_view()),
                ]
