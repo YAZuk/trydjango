@@ -7,7 +7,8 @@ from .views import (
                     ArticleDeleteView,
                     BaseView,
                     BaseDetailView, TestAPIView,
-                    TestAPIView1
+                    TestListCreate, TestPutDelete, TestGet, TestCreate,
+                    TestDelete,TestList
                     )
 
 
@@ -22,6 +23,11 @@ urlpatterns = [
                 path('create/', ArticleCreateView.as_view(), name="article-create"),
                 path('about/', BaseView.as_view(template_name="articles/contact.html"), name="article-about"),
                 path('about/<int:pk>', BaseDetailView.as_view(), name="article-about-detail"),
-                path('test/', TestAPIView.as_view(), name="article-test"),
-                path('test1/', TestAPIView1.as_view(), name="article-test1"),
+                path('test_api_view/', TestAPIView.as_view(), name="article-test"),
+                path('test_list/', TestList.as_view(), name="article-list"),
+                path('test_list_create/', TestListCreate.as_view(), name="article-list-create"),
+                path('test_put_delete/<int:pk>', TestPutDelete.as_view(), name="article-put-delete"),
+                path('test_delete/<int:pk>', TestDelete.as_view(), name="article-delete"),
+                path('test_get/<int:pk>', TestGet.as_view(), name="article-put"),
+                path('test_create/', TestCreate.as_view(), name="article-create"),
                ]
