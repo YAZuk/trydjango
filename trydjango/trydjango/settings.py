@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'blog',
     'rest_framework',
     'rest_framework_jwt',
+    'rest_framework.authtoken',
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -144,5 +146,6 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
 }
