@@ -29,7 +29,7 @@ urlpatterns = [
                 path('test_list_create/', TestListCreate.as_view(), name="article-list-create"),
                 path('test_put_delete/<int:pk>', TestPutDelete.as_view(), name="article-put-delete"),
                 path('test_delete/<int:pk>', TestDelete.as_view(), name="article-delete"),
-                path('test_get/<int:pk>', TestGet.as_view(), name="article-put"),
+                path('test_get/<int:pk>', TestGet.as_view(), name="article-get"),
                 path('test_create/', TestCreate.as_view(), name="article-create"),
                 url('test_obtain_jwt/', obtain_jwt_token),
                 url('test_verify_jwt/', verify_jwt_token),

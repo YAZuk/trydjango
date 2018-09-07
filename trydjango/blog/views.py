@@ -99,14 +99,14 @@ class TestGet(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    authentication_classes = [SessionAuthentication]
+    authentication_classes = [JSONWebTokenAuthentication]
 
 
 class TestCreate(CreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    authentication_classes = [SessionAuthentication]
+    authentication_classes = [JSONWebTokenAuthentication]
 
 
 class BaseDetailView(View):
