@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
 from django.views import View
+from rest_framework.response import Response
 from django.views.generic import (
         ListView,
         CreateView,
@@ -8,6 +9,10 @@ from django.views.generic import (
         UpdateView,
         DeleteView
 )
+
+import json
+from rest_framework.serializers import Serializer
+
 # Create your views here.
 from .models import Article
 from .forms import ArticleModelForm
@@ -25,7 +30,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework_jwt.views import (VerifyJSONWebToken, RefreshJSONWebToken)
 
 
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, TestSerializer
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -102,13 +107,20 @@ class TestGet(RetrieveAPIView):
     authentication_classes = [JSONWebTokenAuthentication, SessionAuthentication]
 
 
-class TestGetSerializer(RetrieveAPIView):
+class TestGetSerializer(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
-    authentication_classes = [JSONWebTokenAuthentication, SessionAuthentication]
+    # queryset = Article.objects.all()
+    serializer_class = TestSerializer
+    authentication_classes = [JSONWebTokenAuthentication]
 
+    def get(self, request):
+        return Response(data={})
 
+    def post(self, request):
+        serializer = TestSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(data={"status": "ok"}, status=201)
+        raise Exception("JSON is not validated")
 
 
 class TestCreate(CreateAPIView):
@@ -116,6 +128,14 @@ class TestCreate(CreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     authentication_classes = [JSONWebTokenAuthentication]
+
+    # def post(self, request, *args, **kwargs):
+    #     serializer = ArticleSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         # serializer.save(data=request.data)
+    #         return Response(data=request.data)
+    #     return Response(data={"status": "error"})
+
 
 
 class BaseDetailView(View):

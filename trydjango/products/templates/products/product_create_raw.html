@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<p>In App</p>
-<form method="post">{% csrf_token %}
-    <input type="text" name = "title" placeholder="Yout title"/>
-    <input type="submit" value="Save"/>
-</form>
-{% endblock content %}
