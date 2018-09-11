@@ -31,9 +31,9 @@ urlpatterns = [
                 path('test_delete/<int:pk>', TestDelete.as_view(), name="article-delete"),
                 path('test_get/<int:pk>', TestGet.as_view(), name="article-get"),
                 path('test_create/', TestCreate.as_view(), name="article-create"),
-                url('test_obtain_jwt/', obtain_jwt_token),
-                url('test_verify_jwt/', verify_jwt_token),
-                url('test_refresh_jwt/', refresh_jwt_token),
+                url('obtain_jwt/', obtain_jwt_token),
+                url('verify_jwt/', verify_jwt_token),
+                url('refresh_jwt/', refresh_jwt_token),
                 url('test_serializer/', TestGetSerializer.as_view()),
                 # url('test_obtain_jwt1/', CustomAuthToken.as_view()),
                ]
