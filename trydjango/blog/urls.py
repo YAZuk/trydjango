@@ -9,7 +9,7 @@ from .views import (
                     BaseView,
                     BaseDetailView, TestAPIView,
                     TestListCreate, TestPutDelete, TestGet, TestCreate,
-                    TestDelete, TestList, TestGetSerializer
+                    TestDelete, TestList, TestGetSerializer, GetUsers, TestMixin
                     )
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
@@ -35,5 +35,7 @@ urlpatterns = [
                 url('verify_jwt/', verify_jwt_token),
                 url('refresh_jwt/', refresh_jwt_token),
                 url('test_serializer/', TestGetSerializer.as_view()),
+                url('get_users/', GetUsers.as_view()),
+                # url('get_mixin/', TestMixin.as_view()),
                 # url('test_obtain_jwt1/', CustomAuthToken.as_view()),
                ]

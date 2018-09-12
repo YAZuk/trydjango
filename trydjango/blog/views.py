@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
 from django.views import View
+from rest_framework import mixins
 from rest_framework.response import Response
 from django.views.generic import (
         ListView,
@@ -12,7 +13,7 @@ from django.views.generic import (
 
 import json
 from rest_framework.serializers import Serializer
-
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, MultiPartRenderer, AdminRenderer
 # Create your views here.
 from .models import Article
 from .forms import ArticleModelForm
@@ -29,12 +30,14 @@ from rest_framework.parsers import JSONParser
 
 from rest_framework_jwt.views import (VerifyJSONWebToken, RefreshJSONWebToken)
 
-
-from .serializers import ArticleSerializer, TestSerializer
+from django.contrib.auth.models import User
+from .serializers import ArticleSerializer, TestSerializer, UserSerializer
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from django_filters.filters import DateFilter
+
 
 
 # class CustomAuthToken(ObtainAuthToken):
@@ -50,6 +53,22 @@ from rest_framework.response import Response
 #             'user_id': user.pk,
 #             'email': user.email
 #         })
+
+# class TestMixin():
+#     def get(self):
+#         pass
+#     def post(self):
+#         pass
+
+
+
+
+
+class GetUsers(ListCreateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication]
 
 
 class TestAPIView(APIView):
@@ -69,6 +88,8 @@ class TestListCreate(ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     authentication_classes = [SessionAuthentication]
+    renderer_classes = [AdminRenderer]
+    # parser_classes = [JSONParser]
 
     def perform_create(self, serializer):
         if serializer.is_valid():
@@ -84,7 +105,7 @@ class TestList(ListAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     authentication_classes = [SessionAuthentication]
-
+    renderer_classes = [AdminRenderer]
 
 class TestPutDelete(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
@@ -135,7 +156,6 @@ class TestCreate(CreateAPIView):
     #         # serializer.save(data=request.data)
     #         return Response(data=request.data)
     #     return Response(data={"status": "error"})
-
 
 
 class BaseDetailView(View):

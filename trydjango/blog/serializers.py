@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework import authentication
 from rest_framework import permissions
-from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework.serializers import ModelSerializer, Serializer, HyperlinkedModelSerializer
 from .models import Article, User
 
 
@@ -22,3 +22,11 @@ class TestSerializer(Serializer):
     #     User.objects.create_user(username=validated_data['firstname'] +' '+ validated_data['lastname'],
     #                              email="yazuk85@gmail.com", password="1234567890")
     #     print(validated_data)
+
+
+class UserSerializer(HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+                    'id', 'username', 'email', 'date_joined',
+                 ]
