@@ -19,6 +19,7 @@ from django.conf.urls import url
 # from products import views
 urlpatterns = [
     path('blog/', include('blog.urls')),
+    path('employee/', include('trydjango.employee.urls')),
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
