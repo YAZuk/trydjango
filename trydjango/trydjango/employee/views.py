@@ -54,5 +54,5 @@ class ViewGetInfoUser(CreateAPIView):
                                     email=serializer.data['email'], summary=serializer.data['summary'],
                                     phone=phone_is_valid.string)
             return Response(serializer.data)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(data={"error": "valid json"}, status=status.HTTP_400_BAD_REQUEST)
 
