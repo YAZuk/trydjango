@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'rest_framework',
     'rest_framework_jwt',
+    'trydjango.employee'
 ]
 
 MIDDLEWARE = [

@@ -9,7 +9,7 @@ from .views import (
                     BaseView,
                     BaseDetailView, TestAPIView,
                     TestListCreate, TestPutDelete, TestGet, TestCreate,
-                    TestDelete, TestList, TestGetSerializer, GetUsers, TestMixin
+                    TestDelete, TestList, TestGetSerializer, GetUsers
                     )
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
